@@ -1,8 +1,9 @@
 import hashlib
 import logging
+from typing import Optional
 
 
-def calculate_file_hash(file_path: str) -> str | None:
+def calculate_file_hash(file_path: str) -> Optional[str]:
     """
     Calculate the SHA-256 hash of a file for integrity and uniqueness.
     """

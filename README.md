@@ -5,6 +5,12 @@ We will use a user account and utilize the api_id and api_hash of the user accou
 
 
 
+# EASY INSTALL
+Just Run
+```
+./install.sh
+```
+
 ## Important Links!
 - https://my.telegram.org/auth
 - https://github.com/LonamiWebs/Telethon

@@ -1,0 +1,7 @@
+telethon
+dotenv
+tenacity
+mysql-connector-python
+aiofiles
+aiohttp
+deep_translator

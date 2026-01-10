@@ -7,7 +7,8 @@ from telethon import events, types
 from telethon.tl.types import Channel, Chat, MessageMediaDocument, MessageMediaPhoto, MessageService, User
 
 from config.settings import UPLOAD_API_URL
-from services.database import insert_data_to_db
+from services.database import insert_data_to_db, insert_score_to_db
+from services.scoring import calculate_message_score, get_high_risk_users
 from services.storage import save_messages
 from services.uploader import upload_file_to_api
 from utils.files import calculate_file_hash
@@ -148,6 +149,22 @@ async def handle_new_message(event, client, group, messages, storage_path, db_co
     messages.append(message_data)
     await save_messages(storage_path, messages)
     await insert_data_to_db(message_data, bot_username, db_config)
+    
+    # Calculate and store the message score
+    try:
+        high_risk_users = get_high_risk_users(db_config)
+        score_details = calculate_message_score(message_data, db_config, high_risk_users)
+        if score_details["total_score"] > 0:
+            await insert_score_to_db(message_data["message_id"], score_details, db_config)
+            logging.info(
+                f"Message {message_data['message_id']} scored: {score_details['total_score']} points "
+                f"(sensitive terms: {score_details['sensitive_terms_count']}, "
+                f"suspicious links: {score_details['suspicious_links_count']}, "
+                f"repeated sharing: {score_details['repeated_sharing']}, "
+                f"high-risk user: {score_details['high_risk_user']})"
+            )
+    except Exception as exc:
+        logging.error(f"Error calculating message score: {exc}")
 
 
 def register_message_handler(client, group, messages, storage_path, db_config, bot_username, media_dir):

@@ -96,42 +96,7 @@ CREATE TABLE `user` (
   `name` varchar(150) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
---------------------------------------------------------
 
--- Table to store message scores
-CREATE TABLE IF NOT EXISTS `message_scores` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `message_id` int(11) NOT NULL,
-  `score` int(11) DEFAULT 0,
-  `sensitive_terms_count` int(11) DEFAULT 0,
-  `suspicious_links_count` int(11) DEFAULT 0,
-  `repeated_sharing` tinyint(1) DEFAULT 0,
-  `high_risk_user` tinyint(1) DEFAULT 0,
-  `calculated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `message_id` (`message_id`),
-  KEY `idx_score` (`score`),
-  CONSTRAINT `message_scores_ibfk_1` FOREIGN KEY (`message_id`) REFERENCES `content` (`id_message`) ON DELETE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---------------------------------------------------------
--- Table to store training feedback for the scoring system
-CREATE TABLE IF NOT EXISTS `training_feedback` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `message_id` int(11) NOT NULL,
-  `original_score` int(11) NOT NULL,
-  `is_correct` tinyint(1) DEFAULT NULL COMMENT '1 = correto, 0 = incorreto, NULL = pendente',
-  `feedback_notes` text DEFAULT NULL COMMENT 'Notas adicionais do analista',
-  `reviewed_at` timestamp NULL DEFAULT NULL,
-  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `message_id` (`message_id`),
-  KEY `idx_is_correct` (`is_correct`),
-  KEY `idx_reviewed_at` (`reviewed_at`),
-  CONSTRAINT `training_feedback_ibfk_1` FOREIGN KEY (`message_id`) REFERENCES `content` (`id_message`) ON DELETE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---------------------------------------------------------
 --
 -- Indexes for dumped tables
 --
@@ -237,3 +202,40 @@ ALTER TABLE `links`
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+
+--------------------------------------------------------
+
+-- Table to store message scores
+CREATE TABLE IF NOT EXISTS `message_scores` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `message_id` int(11) NOT NULL,
+  `score` int(11) DEFAULT 0,
+  `sensitive_terms_count` int(11) DEFAULT 0,
+  `suspicious_links_count` int(11) DEFAULT 0,
+  `repeated_sharing` tinyint(1) DEFAULT 0,
+  `high_risk_user` tinyint(1) DEFAULT 0,
+  `calculated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `message_id` (`message_id`),
+  KEY `idx_score` (`score`),
+  CONSTRAINT `message_scores_ibfk_1` FOREIGN KEY (`message_id`) REFERENCES `content` (`id_message`) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--------------------------------------------------------
+-- Table to store training feedback for the scoring system
+CREATE TABLE IF NOT EXISTS `training_feedback` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `message_id` int(11) NOT NULL,
+  `original_score` int(11) NOT NULL,
+  `is_correct` tinyint(1) DEFAULT NULL COMMENT '1 = correto, 0 = incorreto, NULL = pendente',
+  `feedback_notes` text DEFAULT NULL COMMENT 'Notas adicionais do analista',
+  `reviewed_at` timestamp NULL DEFAULT NULL,
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `message_id` (`message_id`),
+  KEY `idx_is_correct` (`is_correct`),
+  KEY `idx_reviewed_at` (`reviewed_at`),
+  CONSTRAINT `training_feedback_ibfk_1` FOREIGN KEY (`message_id`) REFERENCES `content` (`id_message`) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--------------------------------------------------------

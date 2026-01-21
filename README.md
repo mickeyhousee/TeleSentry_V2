@@ -4,6 +4,7 @@ Search for messages/leaks in Telegram channels.
 We will use a user account and utilize the api_id and api_hash of the user account.
 
 
+![Icon TeleSentry](/assets/icon_telesentry.png)
 
 # EASY INSTALL
 Just Run

@@ -6,15 +6,15 @@ $username = "grilo";
 $password = "grilo";
 $dbname = "search_telegram";
 
-// Criar conexão
+// Create connection
 $conn = new mysqli($servername, $username, $password, $dbname);
 
-// Verificar conexão
+// Check connection
 if ($conn->connect_error) {
     die(json_encode(["error" => "Connection failed: " . $conn->connect_error]));
 }
 
-// Modificar a consulta SQL para obter os grupos e contagem de mensagens
+// Modify the SQL query to get groups and message count
 $sql = "
     SELECT 
         `group`.group_id AS group_id, 

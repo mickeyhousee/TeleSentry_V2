@@ -14,7 +14,7 @@ if ($conn->connect_error) {
     die(json_encode(["error" => "Connection failed: " . $conn->connect_error]));
 }
 
-// Preparar a consulta principal
+// Prepare the main query
 $sql = "
     SELECT 
         content.id_message, 
@@ -46,7 +46,7 @@ while ($row = $result->fetch_assoc()) {
     $data[] = $row;
 }
 
-// Preparar a consulta para obter o número total de mensagens
+// Prepare the query to get the total number of messages
 $countQuery = "
     SELECT COUNT(*) AS total 
     FROM content 
@@ -59,7 +59,7 @@ $countResult = $countStmt->get_result();
 $totalMessages = $countResult->fetch_assoc()['total'];
 $totalPages = ceil($totalMessages / $limit);
 
-// Fechar as declarações e a conexão
+// Close statements and connection
 $stmt->close();
 $countStmt->close();
 $conn->close();

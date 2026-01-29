@@ -72,7 +72,7 @@ if (!$result) {
 }
 
 if ($result->num_rows === 0) {
-    echo json_encode(["message" => null, "error" => "Nenhuma mensagem encontrada"]);
+    echo json_encode(["message" => null, "error" => "No message found"]);
     $conn->close();
     exit;
 }

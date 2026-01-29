@@ -1,4 +1,4 @@
-/* Estilos comuns */
+/* Common styles */
 html, body {
     margin: 0;
     padding: 0;
@@ -10,7 +10,7 @@ html, body {
     color: #e0e0e0;
 }
 
-/* Estilos para a barra lateral e conteúdo (mesmos do exemplo anterior) */
+/* Styles for sidebar and content */
 .sidebar {
     position: fixed;
     height: 100%;
@@ -167,7 +167,7 @@ html, body {
     background-color: #333;
 }
 
-/* Estilos para os quadrados informativos */
+/* Styles for info boxes */
 .room2-content {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
@@ -204,7 +204,7 @@ html, body {
     cursor: pointer;
 }
 
-/* Estilos para os quadrados da room3 */
+/* Styles for room3 boxes */
 .room3-content {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
@@ -230,7 +230,7 @@ html, body {
     position: relative;
 }
 
-/* Estilo personalizado para DataTables */
+/* Custom style for DataTables */
 .dataTables_wrapper {
     padding: 20px;
     background-color: #ffffffb2;
@@ -245,23 +245,23 @@ html, body {
 }
 
 .dataTables_wrapper .dataTables_paginate .paginate_button {
-    background-color: #333; /* Cor de fundo */
-    border: 1px solid #555; /* Cor da borda */
-    color: #ffffff; /* Cor do texto (branco) */
+    background-color: #333; /* Background color */
+    border: 1px solid #555; /* Border color */
+    color: #ffffff; /* Text color (white) */
     padding: 5px 10px;
     margin: 2px;
     border-radius: 5px;
-    transition: background-color 0.3s, color 0.3s; /* Adiciona transição suave */
+    transition: background-color 0.3s, color 0.3s; /* Adds smooth transition */
 }
 
 .dataTables_wrapper .dataTables_paginate .paginate_button:hover {
     background-color: #555;
-    color: #ffffff; /* Cor do texto ao passar o mouse */
+    color: #ffffff; /* Text color on hover */
 }
 
 .dataTables_wrapper .dataTables_paginate .paginate_button.current {
     background-color: #555;
-    color: #ffffff; /* Cor do texto do botão ativo */
+    color: #ffffff; /* Active button text color */
 }
 
 .dataTables_wrapper .dataTables_filter input {
@@ -313,7 +313,7 @@ table.dataTable tbody td {
     overflow: hidden;
 }
 
-/* Responsividade */
+/* Responsiveness */
 @media (max-width: 768px) {
     .sidebar {
         width: 80px;
@@ -373,30 +373,35 @@ table.dataTable tbody td {
         padding: 10px;
     }
 }
-/* Estilo para o contêiner da tabela */
+/* Style for table container */
 .table-container {
     width: 70%;
-    margin: 0 auto; /* Centraliza o contêiner */
-    max-height: 60vh; /* Limita a altura máxima do contêiner */
-    overflow-y: auto; /* Adiciona barra de rolagem vertical se necessário */
+    margin: 0 auto; /* Centers the container */
+    max-height: 60vh; /* Limits maximum container height */
+    overflow-y: auto; /* Adds vertical scrollbar if needed */
 }
 
-/* Estilo para a tabela personalizada */
+/* Style for custom table */
 .styled-table {
-    width: 100%; /* Ajusta a tabela para ocupar 100% do contêiner */
+    width: 100%; /* Adjusts table to occupy 100% of container */
     border-collapse: collapse;
     font-size: 0.8em; /* Reduz o tamanho da fonte */
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
     background-color: #2e2e2e; /* Fundo cinzento escuro */
-    color: #ffffff; /* Conteúdo a branco */
+    color: #ffffff; /* White content */
     border-radius: 10px; /* Bordas arredondadas */
     overflow: hidden; /* Garante que as bordas arredondadas funcionem */
 }
 
 .styled-table thead tr {
-    background-color: #444444; /* Fundo cinzento escuro */
-    color: #ffffff; /* Texto branco */
+    background-color: #444444 !important; /* Dark gray background - force color */
+    color: #ffffff !important; /* White text - force color */
     text-align: left;
+}
+
+.styled-table thead tr th {
+    background-color: #444444 !important; /* Dark gray background - force color */
+    color: #ffffff !important; /* White text - force color */
 }
 
 .styled-table th,
@@ -404,16 +409,23 @@ table.dataTable tbody td {
     padding: 8px 10px; /* Reduz o padding */
     border: 1px solid #444444; /* Bordas cinzento escuro */
     word-wrap: break-word; /* Permite quebra de linha em palavras longas */
+    background-color: #2e2e2e !important; /* Dark gray background - force color */
+    color: #ffffff !important; /* White text - force color */
 }
 
 .styled-table tbody tr {
-    background-color: #2e2e2e; /* Fundo cinzento escuro */
-    color: #ffffff; /* Conteúdo a branco */
+    background-color: #2e2e2e !important; /* Dark gray background - force color */
+    color: #ffffff !important; /* White content - force color */
     border-bottom: 1px solid #444444; /* Bordas cinzento escuro */
 }
 
 .styled-table tbody tr:nth-of-type(even) {
-    background-color: #3a3a3a; /* Ligeiramente mais claro para linhas pares */
+    background-color: #3a3a3a !important; /* Slightly lighter for even rows - force color */
+}
+
+.styled-table tbody tr td {
+    background-color: inherit !important; /* Inherits color from tr */
+    color: #ffffff !important; /* White text - force color */
 }
 
 .styled-table tbody tr:last-of-type {
@@ -425,7 +437,7 @@ table.dataTable tbody td {
     color: #009879;
 }
 
-/* Estilo para paginação */
+/* Style for pagination */
 .pagination {
     display: flex;
     justify-content: center;
@@ -433,14 +445,14 @@ table.dataTable tbody td {
 }
 
 .pagination .page-link {
-    color: #ffffff; /* Texto branco */
+    color: #ffffff; /* White text */
     padding: 10px 15px;
     margin: 0 5px;
-    border: 1px solid #444444; /* Bordas cinzento escuro */
+    border: 1px solid #444444; /* Dark gray borders */
     cursor: pointer;
     text-decoration: none;
-    background-color: #2e2e2e; /* Fundo cinzento escuro */
-    border-radius: 5px; /* Bordas arredondadas para botões */
+    background-color: #2e2e2e; /* Dark gray background */
+    border-radius: 5px; /* Rounded borders for buttons */
 }
 
 .pagination .page-link.disabled {
@@ -449,7 +461,7 @@ table.dataTable tbody td {
 }
 
 .pagination .page-link.disabled:hover {
-    background-color: #666666; /* Mantém a cor quando desabilitado */
+    background-color: #666666; /* Maintains color when disabled */
 }
 
 .bot-card {
@@ -476,12 +488,12 @@ table.dataTable tbody td {
     color: #b0b0b0;
 }
 
-/* Estilo dos títulos */
+/* Title style */
 .bot-card p strong {
     color: #ffffff;
 }
 
-/* Adicionando animação suave */
+/* Adding smooth animation */
 @keyframes fadeIn {
     from { opacity: 0; }
     to { opacity: 1; }
@@ -491,14 +503,14 @@ table.dataTable tbody td {
     animation: fadeIn 0.5s ease-in-out;
 }
 
-/* Estilo das mensagens de erro */
+/* Error message style */
 .error-message {
     color: red;
     font-size: 1.2em;
     margin-top: 20px;
 }
 
-/* Estilos para pontuações */
+/* Styles for scores */
 .high-score {
     background-color: #ff4444;
     color: #ffffff;

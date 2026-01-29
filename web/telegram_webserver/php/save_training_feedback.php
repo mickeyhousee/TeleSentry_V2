@@ -13,7 +13,7 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
 $input = json_decode(file_get_contents('php://input'), true);
 
 if (!isset($input['message_id']) || !isset($input['original_score']) || !isset($input['is_correct'])) {
-    echo json_encode(["error" => "Campos obrigatórios: message_id, original_score, is_correct"]);
+    echo json_encode(["error" => "Required fields: message_id, original_score, is_correct"]);
     exit;
 }
 
@@ -29,7 +29,7 @@ if ($conn->connect_error) {
     exit;
 }
 
-// Inserir ou atualizar feedback
+// Insert or update feedback
 $sql = "
     INSERT INTO training_feedback 
     (message_id, original_score, is_correct, feedback_notes, reviewed_at)

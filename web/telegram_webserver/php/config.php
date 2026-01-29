@@ -4,10 +4,10 @@ $username = "grilo";
 $password = "grilo";
 $dbname = "search_telegram";
 
-// Cria a conexão
+// Create connection
 $conn = new mysqli($servername, $username, $password, $dbname);
 
-// Verifica a conexão
+// Check connection
 if ($conn->connect_error) {
     die(json_encode(["error" => "Connection failed: " . $conn->connect_error]));
 }

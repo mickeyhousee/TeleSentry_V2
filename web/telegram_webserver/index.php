@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="pt">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -15,14 +15,23 @@
         <div class="logo" onclick="loadRoom('roompred')">
             <img src="/telegram_webserver/images/logo_cociber.png" alt="Logo">
         </div>
-        <a href="#" onclick="loadRoom('room3')">
-            <span class="text">PESQUISA</span>
+        <a href="#" onclick="loadRoom('room3'); return false;">
+            <span class="text">SEARCH</span>
         </a>
-        <a href="#" onclick="loadRoom('room2')">
-            <span class="text">BOT´S</span>
+        <a href="#" onclick="loadRoom('room5'); return false;">
+            <span class="text">RANKING</span>
         </a>
-        <a href="#" onclick="loadRoom('room4')">
-            <span class="text">Grupos</span>
+        <a href="#" onclick="loadRoom('room2'); return false;">
+            <span class="text">BOTS</span>
+        </a>
+        <a href="#" onclick="loadRoom('room4'); return false;">
+            <span class="text">GROUPS</span>
+        </a>
+        <a href="#" onclick="loadRoom('room6'); return false;">
+            <span class="text">TRAINING</span>
+        </a>
+        <a href="#" onclick="loadRoom('room7'); return false;">
+            <span class="text">SCORES</span>
         </a>
     </div>
     <div class="content">

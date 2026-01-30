@@ -150,19 +150,19 @@ async def handle_new_message(event, client, group, messages, storage_path, db_co
     await save_messages(storage_path, messages)
     await insert_data_to_db(message_data, bot_username, db_config)
     
-    # Calculate and store the message score
+    # Calculate and store the message score (always insert, even if score is 0)
     try:
         high_risk_users = get_high_risk_users(db_config)
         score_details = calculate_message_score(message_data, db_config, high_risk_users)
-        if score_details["total_score"] > 0:
-            await insert_score_to_db(message_data["message_id"], score_details, db_config)
-            logging.info(
-                f"Message {message_data['message_id']} scored: {score_details['total_score']} points "
-                f"(sensitive terms: {score_details['sensitive_terms_count']}, "
-                f"suspicious links: {score_details['suspicious_links_count']}, "
-                f"repeated sharing: {score_details['repeated_sharing']}, "
-                f"high-risk user: {score_details['high_risk_user']})"
-            )
+        # Always insert score, even if it's 0, so messages can be evaluated in the ranking system
+        await insert_score_to_db(message_data["message_id"], score_details, db_config)
+        logging.info(
+            f"Message {message_data['message_id']} scored: {score_details['total_score']} points "
+            f"(sensitive terms: {score_details['sensitive_terms_count']}, "
+            f"suspicious links: {score_details['suspicious_links_count']}, "
+            f"repeated sharing: {score_details['repeated_sharing']}, "
+            f"high-risk user: {score_details['high_risk_user']})"
+        )
     except Exception as exc:
         logging.error(f"Error calculating message score: {exc}")
 

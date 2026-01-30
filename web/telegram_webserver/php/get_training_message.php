@@ -13,6 +13,7 @@ if ($conn->connect_error) {
 }
 
 // Query to search a random scored message
+// Include messages with score >= 0 (including score 0) so all new messages can be trained
 if ($exclude_reviewed) {
     $sql = "
         SELECT 
@@ -33,7 +34,7 @@ if ($exclude_reviewed) {
         LEFT JOIN `user` u ON c.id_user = u.id_user
         LEFT JOIN `group` g ON c.id_group = g.group_id
         LEFT JOIN training_feedback tf ON c.id_message = tf.message_id
-        WHERE ms.score > 0 
+        WHERE ms.score >= 0 
         AND (tf.id IS NULL OR tf.is_correct IS NULL)
         ORDER BY RAND()
         LIMIT 1
@@ -57,7 +58,7 @@ if ($exclude_reviewed) {
         INNER JOIN message_scores ms ON c.id_message = ms.message_id
         LEFT JOIN `user` u ON c.id_user = u.id_user
         LEFT JOIN `group` g ON c.id_group = g.group_id
-        WHERE ms.score > 0
+        WHERE ms.score >= 0
         ORDER BY RAND()
         LIMIT 1
     ";

@@ -140,7 +140,7 @@ async def get_random_scored_message(db_config: dict, exclude_reviewed: bool = Tr
         conn = mysql.connector.connect(**db_config)
         cursor = conn.cursor(dictionary=True)
         
-        # Base query to search scored messages
+        # Base query to search scored messages (including score 0)
         if exclude_reviewed:
             query = """
                 SELECT 
@@ -161,7 +161,7 @@ async def get_random_scored_message(db_config: dict, exclude_reviewed: bool = Tr
                 LEFT JOIN `user` u ON c.id_user = u.id_user
                 LEFT JOIN `group` g ON c.id_group = g.group_id
                 LEFT JOIN training_feedback tf ON c.id_message = tf.message_id
-                WHERE ms.score > 0 
+                WHERE ms.score >= 0 
                 AND (tf.id IS NULL OR tf.is_correct IS NULL)
                 ORDER BY RAND()
                 LIMIT 1
@@ -185,7 +185,7 @@ async def get_random_scored_message(db_config: dict, exclude_reviewed: bool = Tr
                 INNER JOIN message_scores ms ON c.id_message = ms.message_id
                 LEFT JOIN `user` u ON c.id_user = u.id_user
                 LEFT JOIN `group` g ON c.id_group = g.group_id
-                WHERE ms.score > 0
+                WHERE ms.score >= 0
                 ORDER BY RAND()
                 LIMIT 1
             """
@@ -289,8 +289,8 @@ def get_training_statistics(db_config: dict) -> dict:
         conn = mysql.connector.connect(**db_config)
         cursor = conn.cursor(dictionary=True)
         
-        # Total scored messages
-        cursor.execute("SELECT COUNT(*) as total FROM message_scores WHERE score > 0")
+        # Total scored messages (including score 0)
+        cursor.execute("SELECT COUNT(*) as total FROM message_scores WHERE score >= 0")
         total_scored = cursor.fetchone()['total']
         
         # Reviewed messages
@@ -305,12 +305,12 @@ def get_training_statistics(db_config: dict) -> dict:
         cursor.execute("SELECT COUNT(*) as total FROM training_feedback WHERE is_correct = 0")
         total_incorrect = cursor.fetchone()['total']
         
-        # Pending messages
+        # Pending messages (including score 0)
         cursor.execute("""
             SELECT COUNT(*) as total 
             FROM message_scores ms
             LEFT JOIN training_feedback tf ON ms.message_id = tf.message_id
-            WHERE ms.score > 0 AND (tf.id IS NULL OR tf.is_correct IS NULL)
+            WHERE ms.score >= 0 AND (tf.id IS NULL OR tf.is_correct IS NULL)
         """)
         total_pending = cursor.fetchone()['total']
         

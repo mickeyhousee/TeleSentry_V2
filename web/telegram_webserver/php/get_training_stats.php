@@ -10,8 +10,8 @@ if ($conn->connect_error) {
     exit;
 }
 
-// Total scored messages
-$sql = "SELECT COUNT(*) as total FROM message_scores WHERE score > 0";
+// Total scored messages (including score 0)
+$sql = "SELECT COUNT(*) as total FROM message_scores WHERE score >= 0";
 $result = $conn->query($sql);
 $total_scored = $result->fetch_assoc()['total'];
 
@@ -30,12 +30,12 @@ $sql = "SELECT COUNT(*) as total FROM training_feedback WHERE is_correct = 0";
 $result = $conn->query($sql);
 $total_incorrect = $result->fetch_assoc()['total'];
 
-// Pending messages
+// Pending messages (including score 0)
 $sql = "
     SELECT COUNT(*) as total 
     FROM message_scores ms
     LEFT JOIN training_feedback tf ON ms.message_id = tf.message_id
-    WHERE ms.score > 0 AND (tf.id IS NULL OR tf.is_correct IS NULL)
+    WHERE ms.score >= 0 AND (tf.id IS NULL OR tf.is_correct IS NULL)
 ";
 $result = $conn->query($sql);
 $total_pending = $result->fetch_assoc()['total'];

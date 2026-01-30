@@ -21,7 +21,7 @@ $sql = "
         content.date_message, 
         content.content, 
         content.translated_content, 
-        user.username AS id_user, 
+        COALESCE(user.name, user.username, 'Unknown') AS id_user, 
         `group`.group_name AS group_name
     FROM content
     JOIN user ON content.id_user = user.id_user
